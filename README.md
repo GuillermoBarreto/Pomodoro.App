@@ -9,7 +9,7 @@ A modern Pomodoro timer built with Python and Tkinter. Track your work and break
 - Customizable themes and colors
 - Sound notifications for session start/end
 - Easy-to-use GUI with start, pause, and reset
-- Optional multiple timers for focus sessions
+- Optional multiple timers for focus sessions app for
 
 ## Installation
 
