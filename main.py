@@ -68,7 +68,7 @@ class PomodoroApp:
         self.history_text.pack(pady=5)
         self.history_text.config(state=tk.DISABLED)
 
-        self.update_timer_label()
+        self.set_phase("Work")
 
     # ---------------- TIMER FUNCTIONS ----------------
     def start_timer(self):
