@@ -4,7 +4,17 @@ from tkinter import simpledialog
 import time
 import threading
 from PIL import Image, ImageTk
-import winsound
+
+try:
+    import winsound
+except ImportError:  # winsound only exists on Windows
+    winsound = None
+
+
+def _play_completion_beep() -> None:
+    """Beep when a session completes; silently skip where winsound is missing."""
+    if winsound is not None:
+        winsound.Beep(1000, 500)
 
 # ----------------- CONFIG -----------------
 WORK_COLOR = "#4CAF50"      # Green
@@ -107,7 +117,7 @@ class PomodoroApp:
             self.current_time -= 1
 
         if self.current_time == 0:
-            winsound.Beep(1000, 500)
+            _play_completion_beep()
             self.complete_phase()
 
     def complete_phase(self):
