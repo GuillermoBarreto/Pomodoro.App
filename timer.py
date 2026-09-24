@@ -24,6 +24,7 @@ class PomodoroTimer:
         self.cycles_before_long_break = cycles_before_long_break
         self.current_cycle = 0
         self.is_running = False
+        self._on_break = False
         self.time_left = self.work_duration
         self.on_complete = None  # Callback when timer ends
 
@@ -37,6 +38,7 @@ class PomodoroTimer:
         self.is_running = False
         self.time_left = self.work_duration
         self.current_cycle = 0
+        self._on_break = False
 
     def tick(self):
         """Call this every second to update the timer"""
@@ -46,10 +48,16 @@ class PomodoroTimer:
             self._handle_session_complete()
 
     def _handle_session_complete(self):
-        self.current_cycle += 1
-        if self.current_cycle % self.cycles_before_long_break == 0:
-            self.time_left = self.long_break
+        if self._on_break:
+            # A break finished: go back to work; do not advance the cycle.
+            self._on_break = False
+            self.time_left = self.work_duration
         else:
-            self.time_left = self.short_break
+            self.current_cycle += 1
+            self._on_break = True
+            if self.current_cycle % self.cycles_before_long_break == 0:
+                self.time_left = self.long_break
+            else:
+                self.time_left = self.short_break
         if self.on_complete:
             self.on_complete()
