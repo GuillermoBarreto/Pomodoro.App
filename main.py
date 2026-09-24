@@ -85,7 +85,8 @@ class PomodoroApp:
         if not self.is_running:
             self.is_running = True
             if not self.timer_thread or not self.timer_thread.is_alive():
-                self.timer_thread = threading.Thread(target=self.run_timer)
+                # Daemon so closing the window never leaves a zombie process.
+                self.timer_thread = threading.Thread(target=self.run_timer, daemon=True)
                 self.timer_thread.start()
 
     def pause_timer(self):
