@@ -16,5 +16,5 @@ A modern Pomodoro timer built with Python and Tkinter. Track your work and break
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/PomodoroApp.git
-cd PomodoroApp
+git clone https://github.com/GuillermoBarreto/Pomodoro.App.git
+cd Pomodoro.App
