@@ -44,7 +44,11 @@ class PomodoroTimer:
         """Call this every second to update the timer"""
         if self.is_running and self.time_left > 0:
             self.time_left -= 1
-        elif self.is_running and self.time_left == 0:
+            if self.time_left <= 0:
+                # A non-integer duration (e.g. 90.5s) never lands exactly on
+                # 0; complete the session as soon as time runs out instead.
+                self._handle_session_complete()
+        elif self.is_running and self.time_left <= 0:
             self._handle_session_complete()
 
     def _handle_session_complete(self):
