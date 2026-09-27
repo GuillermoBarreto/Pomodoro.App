@@ -3,7 +3,6 @@ from tkinter import messagebox
 from tkinter import simpledialog
 import time
 import threading
-from PIL import Image, ImageTk
 
 try:
     import winsound
