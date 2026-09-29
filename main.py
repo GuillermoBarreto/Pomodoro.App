@@ -165,7 +165,7 @@ class PomodoroApp:
         else:
             fill_ratio = 1 - self.current_time / self.long_break_time if self.long_break_time else 0
 
-        fill_height = 160 * fill_ratio
+        fill_height = total_height * fill_ratio
         self.cup_canvas.coords(self.cup_fill, 23, 180 - fill_height, 127, 180)
         self.cup_canvas.itemconfig(self.cup_fill, fill=self.cup_color)
 
