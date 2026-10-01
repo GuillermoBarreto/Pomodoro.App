@@ -14,9 +14,10 @@ class PomodoroTimer:
         ):
             if value <= 0:
                 raise ValueError(f"{name} must be positive, got {value!r}")
-        if cycles_before_long_break < 1:
+        if not isinstance(cycles_before_long_break, int) or cycles_before_long_break < 1:
             raise ValueError(
-                f"cycles_before_long_break must be at least 1, got {cycles_before_long_break!r}"
+                "cycles_before_long_break must be an integer of at least 1, "
+                f"got {cycles_before_long_break!r}"
             )
         self.work_duration = work_duration
         self.short_break = short_break
