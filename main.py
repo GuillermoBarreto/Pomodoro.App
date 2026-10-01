@@ -109,16 +109,20 @@ class PomodoroApp:
             self.reset_timer()
 
     def run_timer(self):
+        # Widgets are touched on the main thread only: Tkinter is not
+        # thread-safe and calling config()/coords() from this background
+        # thread can crash or freeze the app.
         while self.current_time > 0 and self.is_running:
-            mins, secs = divmod(self.current_time, 60)
-            self.timer_label.config(text=f"{mins:02d}:{secs:02d}")
-            self.update_cup_fill()
+            self.root.after(0, self.update_timer_label)
+            self.root.after(0, self.update_cup_fill)
             time.sleep(1)
             self.current_time -= 1
 
-        if self.current_time == 0:
+        # If the user paused during the final second, stay stopped instead of
+        # beeping and auto-advancing into the next phase.
+        if self.is_running and self.current_time <= 0:
             _play_completion_beep()
-            self.complete_phase()
+            self.root.after(0, self.complete_phase)
 
     def complete_phase(self):
         if self.current_phase == "Work":
