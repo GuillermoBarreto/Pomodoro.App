@@ -68,7 +68,8 @@ class PomodoroApp:
         self.reset_button = tk.Button(root, text="Reset", command=self.reset_timer, width=10, bg="#F04747", fg="white", font=FONT)
         self.reset_button.pack(pady=5)
 
-        self.custom_button = tk.Button(root, text="Set Custom Times", command=self.set_custom_times, width=20, bg="#FAA61A", fg="white", font=FONT)
+        self.custom_button = tk.Button(root, text="Set Custom Times", command=self.set_custom_times, width=20,
+                                       bg="#FAA61A", fg="#1a1a1a", font=FONT)  # dark text: white on orange fails contrast
         self.custom_button.pack(pady=10)
 
         # Session history
