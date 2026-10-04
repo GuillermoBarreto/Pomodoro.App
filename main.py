@@ -22,6 +22,7 @@ LONG_BREAK_COLOR = "#FF9800"   # Orange
 BG_COLOR = "#2C2F33"
 FONT = ("Helvetica", 16)
 SESSION_HISTORY_LIMIT = 5
+CYCLES_BEFORE_LONG_BREAK = 4
 # -----------------------------------------
 
 class PomodoroApp:
@@ -132,7 +133,7 @@ class PomodoroApp:
                 self.session_history.pop(0)
             self.update_history()
             # Decide next break
-            if self.sessions_completed % 4 == 0:
+            if self.sessions_completed % CYCLES_BEFORE_LONG_BREAK == 0:
                 self.set_phase("Long Break")
             else:
                 self.set_phase("Short Break")
