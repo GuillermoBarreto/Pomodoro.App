@@ -3,7 +3,7 @@ class PomodoroTimer:
     """Countdown timer for Pomodoro sessions.
 
     Call ``tick()`` once per second while ``is_running``; ``on_complete`` is
-    invoked each time a work session ends.
+    invoked each time a work session or a break ends.
     """
 
     def __init__(self, work_duration=25*60, short_break=5*60, long_break=15*60, cycles_before_long_break=4):
