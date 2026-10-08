@@ -129,7 +129,11 @@ class PomodoroApp:
     def complete_phase(self):
         if self.current_phase == "Work":
             self.sessions_completed += 1
-            self.session_history.append("Work session completed")
+            # Stamp each entry with the completion time so the history shows
+            # *when* sessions finished, not just that they happened.
+            self.session_history.append(
+                f"Work session completed at {time.strftime('%H:%M')}"
+            )
             if len(self.session_history) > SESSION_HISTORY_LIMIT:
                 self.session_history.pop(0)
             self.update_history()
