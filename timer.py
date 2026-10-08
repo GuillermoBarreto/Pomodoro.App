@@ -12,6 +12,10 @@ class PomodoroTimer:
             ("short_break", short_break),
             ("long_break", long_break),
         ):
+            # A non-numeric duration (e.g. a string) would fail the comparison
+            # below with a confusing TypeError, so check the type first.
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                raise TypeError(f"{name} must be a number of seconds, got {value!r}")
             if value <= 0:
                 raise ValueError(f"{name} must be positive, got {value!r}")
         if not isinstance(cycles_before_long_break, int) or cycles_before_long_break < 1:
