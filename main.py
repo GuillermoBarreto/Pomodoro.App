@@ -143,7 +143,16 @@ class PomodoroApp:
             else:
                 self.set_phase("Short Break")
         else:
+            # Breaks count as sessions too: the panel is labeled
+            # "Session History:", so record them instead of only work blocks.
+            finished_break = self.current_phase
             self.set_phase("Work")
+            self.session_history.append(
+                f"{finished_break} completed at {time.strftime('%H:%M')}"
+            )
+            if len(self.session_history) > SESSION_HISTORY_LIMIT:
+                self.session_history.pop(0)
+            self.update_history()
         self.is_running = False
         self.start_timer()
 
