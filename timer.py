@@ -18,7 +18,13 @@ class PomodoroTimer:
                 raise TypeError(f"{name} must be a number of seconds, got {value!r}")
             if value <= 0:
                 raise ValueError(f"{name} must be positive, got {value!r}")
-        if not isinstance(cycles_before_long_break, int) or cycles_before_long_break < 1:
+        # Like the durations above, reject bools: True is an int (== 1) and
+        # would silently pass as "one cycle before a long break".
+        if (
+            isinstance(cycles_before_long_break, bool)
+            or not isinstance(cycles_before_long_break, int)
+            or cycles_before_long_break < 1
+        ):
             raise ValueError(
                 "cycles_before_long_break must be an integer of at least 1, "
                 f"got {cycles_before_long_break!r}"
